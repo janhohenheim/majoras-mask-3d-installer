@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-GAME_ID = "0004000000125500"
+GAME_IDS = ["0004000000125500", "0004000000125600", "00040000000D6E00"]
 
 
 def get_citra_directory():
@@ -49,8 +49,11 @@ def get_citra_sysdata_directory():
 
 def _get_citra_load_directory(subdirectory):
     citra_settings = get_citra_settings_directory()
-    load_path = os.path.join(citra_settings, "load", subdirectory, GAME_ID)
-    return _ensure_exists(load_path)
+    load_paths = [os.path.join(citra_settings, "load", subdirectory, id) for id in GAME_IDS]
+    for path in load_paths:
+        if os.path.isdir(path):
+            return path
+    raise FileNotFoundError("Could not find Citra load directory for any Majora's Mask. Something must have gone wrong with the CIA import.")
 
 
 def _ensure_exists(path):

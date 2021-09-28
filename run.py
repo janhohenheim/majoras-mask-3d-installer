@@ -29,10 +29,10 @@ if __name__ == "__main__":
         print("")
         print("In order to continue, you must provide a CIA (sometimes called a ROM) for Majora's Mask 3D. Make sure its version is at least 1.1")        
         print("Please enter the path to your CIA, e.g. C:/Games/The Legend of Zelda - Majora's Mask 3D.cia")
-        cia_path = input("> ")
+        cia_path = input("> ").strip()
         while not os.path.isfile(cia_path):
             print(f"CIA not found at {cia_path}. Please enter a valid path to your CIA.")
-            cia_path = input("> ")
+            cia_path = input("> ").strip()
 
         print("Installing Citra...", end='')
         install_and_configure_citra(citra_url)
