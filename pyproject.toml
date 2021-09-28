@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "install-majoras-mask-3d"
+version = "0.1.0"
+description = ""
+authors = ["Jan Hohenheim <jan@hohenheim.ch>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.26.0"
+py7zr = "^0.16.1"
+psutil = "^5.8.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.9b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
