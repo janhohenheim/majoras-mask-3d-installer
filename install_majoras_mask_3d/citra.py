@@ -9,27 +9,25 @@ from threading import Thread
 from install_majoras_mask_3d.utility import download_file, get_only_subdirectory_path, kill_child_processes
 from install_majoras_mask_3d.paths import (
     get_citra_config_directory,
-    get_citra_directory,
     get_citra_sysdata_directory,
 )
 
 
-def install_and_configure_citra(url):
-    _install_citra(url)
+def install_and_configure_citra(url, citra_directory):
+    _install_citra(url, citra_directory)
     _install_citra_aes_keys()
 
 
-def install_cia(cia_path):
-    citra_program = os.path.join(".", get_citra_directory(), "citra.exe")
+def install_cia(cia_path, citra_directory):
+    citra_program = os.path.join(".", citra_directory, "citra.exe")
     print(f"'{citra_program}'")
     subprocess.run([citra_program, "-i", cia_path])
 
 
-def _install_citra(url):
+def _install_citra(url, citra_directory):
     """
     Downloads and installs Citra and returns the path to the Citra directory.
     """
-    citra_directory = get_citra_directory()
     if os.path.isdir(citra_directory):
         return
 
@@ -56,8 +54,8 @@ def _install_citra_aes_keys():
     if not os.path.isfile(target_file):
         copyfile(source_file, target_file)
 
-def set_graphics_options():    
-    thread = Thread(target = _initialize_config)
+def set_graphics_options(citra_directory):    
+    thread = Thread(target = _initialize_config, args = (citra_directory, ))
     thread.start()
     sleep(2)
     kill_child_processes()
@@ -72,8 +70,7 @@ def set_graphics_options():
     new_config = _set_options(old_config, options)
     _write_config(new_config)
 
-def _initialize_config():
-    citra_directory = get_citra_directory()
+def _initialize_config(citra_directory):
     citra_executable = os.path.join(citra_directory, "citra-qt.exe")
     subprocess.run([citra_executable])
 

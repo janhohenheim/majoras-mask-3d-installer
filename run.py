@@ -8,7 +8,7 @@ from install_majoras_mask_3d.citra import install_and_configure_citra, install_c
 from install_majoras_mask_3d.project_restoration import download_project_restoration, download_hd_hud
 from install_majoras_mask_3d.hd_textures import download_hd_textures
 from install_majoras_mask_3d.remastered_ost import download_remastered_ost
-from install_majoras_mask_3d.paths import get_citra_directory
+from install_majoras_mask_3d.paths import get_citra_default_directory
 
 if __name__ == "__main__":
     try:
@@ -34,17 +34,24 @@ if __name__ == "__main__":
             print(f"CIA not found at {cia_path}. Please enter a valid path to your CIA.")
             cia_path = input("> ").strip()
 
+        print("")
+        default_citra_directoryh = get_citra_default_directory()
+        print("I will now install Citra, a 3DS emulator.\nIf you've already installed Citra, I will instead patch the version you already have.")
+        print(F"Please enter the Citra install directory or leave the input blank for the default at {default_citra_directoryh}.")
+        citra_directory = input("> ").strip()
+        citra_directory = citra_directory if citra_directory else default_citra_directoryh
+
         print("Installing Citra...", end='')
-        install_and_configure_citra(citra_url)
+        install_and_configure_citra(citra_url, citra_directory)
         print(" Done!")
 
         print("Loading Majora's Mask into Citra...")
-        install_cia(cia_path)
+        install_cia(cia_path, citra_directory)
         print("Done!")
         
         print("Setting Graphic options...", end='')
-        set_graphics_options()
-        print(" Done! (Don't mind the window that just flashed open for a second, haha)")
+        set_graphics_options(citra_directory)
+        print(" Done! (Don't mind if a window just flashed open for a second, that was Citra generating config files)")
 
         print("Downloading Project Restoration...", end='')
         download_project_restoration(project_restoration_url)
@@ -62,7 +69,6 @@ if __name__ == "__main__":
         download_remastered_ost(remastered_ost_url)
         print(" Done!")
 
-        citra_directory = get_citra_directory()
         print(f"\nSuccessfully installed Majora's Mask!\nI have just opened the installation folder for you: {citra_directory}")
         print("There, you can start the emulator via 'citra-qt.exe'.\nDon't forget to setup any controller you might want to play with at Emulation -> Configure -> Controls.\nHave fun! :)\n")
         webbrowser.open(citra_directory)

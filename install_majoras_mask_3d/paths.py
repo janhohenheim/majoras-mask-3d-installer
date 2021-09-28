@@ -4,7 +4,7 @@ from pathlib import Path
 GAME_IDS = ["0004000000125500", "0004000000125600", "00040000000D6E00"]
 
 
-def get_citra_directory():
+def get_citra_default_directory():
     """
     Returns the path to the Citra directory.
     """
