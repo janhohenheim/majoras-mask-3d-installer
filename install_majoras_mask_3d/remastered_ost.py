@@ -13,6 +13,6 @@ def download_remastered_ost(url):
             archive.extractall(temp_directory)
         remastered_ost_directory = get_only_subdirectory_path(temp_directory)
         source_directory = os.path.join(remastered_ost_directory, "romfs")
-        target_directory = get_citra_mods_directory()
+        target_directory = os.path.join(get_citra_mods_directory(), "romfs")
         copytree(source_directory, target_directory, dirs_exist_ok=True)
 
