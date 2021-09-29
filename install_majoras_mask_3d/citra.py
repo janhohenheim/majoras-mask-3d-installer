@@ -61,7 +61,7 @@ def set_graphics_options(citra_directory):
     kill_child_processes()
     thread.join()
     options = {
-        "texture_filter_name": "xBRZ freescale",
+        "filter_mode": "false",
         "custom_textures": "true",
         "resolution_factor": "0",
         "layout_option": "2",
